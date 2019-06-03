@@ -1,0 +1,77 @@
+
+<SignUpWindow>:
+    space_x:self.size[0]/3
+
+    canvas.before:
+        Color:
+            rgba: (.7, 1, .6, .5)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    GridLayout:
+        size_hint_y:None
+        height: 80
+        orientation: "vertical"
+        spacing: 20
+        cols: 1
+        size:root.width, root.height
+        padding:80
+
+        Label:
+            id:space4logo
+            height:30
+
+        Label:
+            text: "Recycl-App"
+            font_size: 80
+            color: 0, 1, .2, 1
+            bold:True
+            font_name: 'oj'
+
+        Label:
+            height:10
+
+        Label:
+            id: signin_message
+            color: (1,0,0,.7)
+            multiline:True
+            font_size: 25
+            size_hint_y: None
+            text_size: self.size
+            valign: 'center'
+            halign:'center'
+
+        TextInput:
+            width:100
+            id: new_username
+            hint_text: "Create a username"
+            multiline:False
+
+        TextInput:
+            hint_text: "Input a password"
+            id: new_pwd
+            multiline:False
+            password:True
+
+        Button:
+            height: 100
+            text:"Sign Up!"
+            background_normal: ''
+            background_color: 0, 1, 0, .6
+            markup:True
+            on_release:
+                app.my_firebase.sign_up(self, new_username.text, new_pwd.text)
+                #app.patch(JSON.text)
+
+        Button:
+            height: 100
+            text:"Oops, I actually do have an account"
+            background_normal: ''
+            background_color: 0, 1, 0, .6
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction= "right"
+
+        Label:
+            height:60

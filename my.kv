@@ -1,55 +1,14 @@
-<LoginScreen>:
-    id: login_screen
-    space_x:self.size[0]/3
+#:include kv/loginscreen.kv
+#:include kv/signupscreen.kv
 
-    canvas.before:
-        Color:
-            rgba: (.7, 1, .6, .5)
-        Rectangle:
-            size: self.size
-            pos: self.pos
+WindowManager:
 
-    BoxLayout:
-        size_hint_y:None
-        height: 80
-        orientation: "vertical"
-        spacing: 10
-        cols: 1
-        size:root.width, root.height
-        padding:100
-
-        Label:
-            text: "Recycl-App"
-            font_size: 80
-            color: 0, 1, .2, 1
-            bold:True
-            font_name: 'oj'
-
-        Label:
-            text: "Log in, or Create an Account"
-            font_size: 25
-            size: self.size
-
-        TextInput:
-            width:100
-            id: username
-            hint_text: "Username"
-            multiline:False
-
-        TextInput:
-            hint_text: "Password"
-            id: pwd
-            multiline:False
-            password:True
-
-        Button:
-            height: 100
-            text:"Sign In"
-            background_normal: ''
-            background_color: 0, 1, 0, .6
-
-        Button:
-            height: 100
-            text:"Don't Have an Account"
-            background_normal: ''
-            background_color: 0, 1, 0, .6
+    LoginWindow:
+        name:"login"
+        id:login_screen
+    SignUpWindow:
+        name: "signup"
+        id:signup
+    MainAppWindow:
+        name: "mainapp"
+        id:mainapp

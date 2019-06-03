@@ -1,0 +1,69 @@
+
+<LoginWindow>:
+    transition: "FadeTransition"
+    space_x:self.size[0]/3
+
+    canvas.before:
+        Color:
+            rgba: (.7, 1, .6, .5)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    GridLayout:
+        size_hint_y:None
+        height: 80
+        orientation: "vertical"
+        spacing: 20
+        cols: 1
+        size:root.width, root.height
+        padding:80
+
+        Label:
+            height:30
+
+        Label:
+            text: "Recycl-App"
+            font_size: 80
+            color: 0, 1, .2, 1
+            bold:True
+            font_name: 'oj'
+
+        Label:
+            height:50
+        Label:
+            height: 40
+            text: "Log in, or Create an Account"
+            font_size: 25
+            size: self.size
+
+
+        TextInput:
+            width:100
+            id: username
+            hint_text: "Username"
+            multiline:False
+
+        TextInput:
+            hint_text: "Password"
+            id: pwd
+            multiline:False
+            password:True
+
+        Button:
+            height: 100
+            text:"Sign In"
+            background_normal: ''
+            background_color: 0, 1, 0, .6
+
+        Button:
+            height: 100
+            text:"Don't Have an Account"
+            background_normal: ''
+            background_color: 0, 1, 0, .6
+            on_release:
+                app.root.current = "signup"
+                root.manager.transition.direction= "left"
+
+        Label:
+            height:60
