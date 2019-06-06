@@ -1,0 +1,25 @@
+<NameWindow>:
+    space_x:self.size[0]/3
+
+    canvas.before:
+        Color:
+            rgba: (.7, 1, .6, .5)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    GridLayout:
+        rows:2
+        cols:1
+        TextInput:
+            width:100
+            id: usernickname
+            hint_text: "Enter a nickname"
+            multiline:False
+        Button:
+            id:namesubmit
+            text: "Call me this!"
+            on_release:
+                app.setNickname(usernickname.text)
+                stat = "Noobice"
+                app.init_status(stat)
+                app.root.current = "home_screen"

@@ -61,8 +61,7 @@
             background_color: 0, 1, 0, .6
             markup:True
             on_release:
-                app.my_firebase.sign_up(self, new_username.text, new_pwd.text)
-                #app.patch(JSON.text)
+                app.my_firebase.sign_up(new_username.text, new_pwd.text)
 
         Button:
             height: 100
@@ -70,8 +69,10 @@
             background_normal: ''
             background_color: 0, 1, 0, .6
             on_release:
-                app.root.current = "login"
+                app.root.current = "login_screen"
                 root.manager.transition.direction= "right"
 
-        Label:
-            height:60
+        Button:
+            text:"Check Out Recycling Site"
+            on_release:
+                app.root.current = "home_screen"

@@ -32,6 +32,7 @@
         Label:
             height:50
         Label:
+            id:login_message
             height: 40
             text: "Log in, or Create an Account"
             font_size: 25
@@ -39,9 +40,8 @@
 
 
         TextInput:
-            width:100
             id: username
-            hint_text: "Username"
+            hint_text: "Email"
             multiline:False
 
         TextInput:
@@ -51,13 +51,14 @@
             password:True
 
         Button:
-            height: 100
             text:"Sign In"
             background_normal: ''
             background_color: 0, 1, 0, .6
+            on_release:
+                app.my_firebase.sign_in(username.text, pwd.text)
+
 
         Button:
-            height: 100
             text:"Don't Have an Account"
             background_normal: ''
             background_color: 0, 1, 0, .6
@@ -65,5 +66,8 @@
                 app.root.current = "signup"
                 root.manager.transition.direction= "left"
 
-        Label:
-            height:60
+        Button:
+            text:"Check Out Recycling Site"
+            on_release:
+                print("switching")
+                app.root.current="home_screen"

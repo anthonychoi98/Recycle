@@ -1,14 +1,19 @@
 #:include kv/loginscreen.kv
 #:include kv/signupscreen.kv
+#:include kv/home_screen.kv
+#: include kv/name_screen.kv
 
 WindowManager:
 
     LoginWindow:
-        name:"login"
+        name:"login_screen"
         id:login_screen
     SignUpWindow:
         name: "signup"
         id:signup
-    MainAppWindow:
-        name: "mainapp"
-        id:mainapp
+    HomeWindow:
+        name: "home_screen"
+        id:home_screen
+    NameWindow:
+        name: "name_screen"
+        id:name_screen
