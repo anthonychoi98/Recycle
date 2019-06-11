@@ -1,7 +1,10 @@
 #:include kv/loginscreen.kv
 #:include kv/signupscreen.kv
-#:include kv/home_screen.kv
 #: include kv/name_screen.kv
+#: include kv/misc_screen.kv
+#: include kv/soul_screen.kv
+#:import Factory kivy.factory.Factory
+
 
 WindowManager:
 
@@ -9,11 +12,32 @@ WindowManager:
         name:"login_screen"
         id:login_screen
     SignUpWindow:
-        name: "signup"
+        name:"signup"
         id:signup
-    HomeWindow:
-        name: "home_screen"
-        id:home_screen
     NameWindow:
-        name: "name_screen"
+        name:"name_screen"
         id:name_screen
+    Misc:
+        name:"misc_screen"
+        id:misc_screen
+    SoulWindow:
+        name:"soul_screen"
+        id:soul_screen
+
+<P>:
+    #on_open:
+    #    print("hello")
+    #    label.text = "You have been promoted to"
+
+    Label:
+        id:label
+        text:"placeholder"
+        size_hint: .6, .2
+        pos_hint: {"x":0.2, "top":1}
+
+    Button:
+        text: "See Your Achievements"
+        size_hint: .8, .2
+        pos_hint: {"x":0.1, "y":0.1}
+        on_release:
+            print("change screen to achievements")

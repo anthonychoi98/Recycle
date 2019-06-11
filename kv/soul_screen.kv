@@ -1,0 +1,89 @@
+<SoulWindow>:
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: (.7, 1, .6, .5)
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            pos_hint: {"top": 1, "x": 0}
+            size_hint: 1, .1
+            canvas.before:
+                Color:
+                    rgba: (0, .6, .3, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            rows:1
+            cols:2
+            Label:
+                text: "Recycl-App"
+                font_size: 60
+                color: 0, 1, .2, 1
+                bold:True
+                font_name: 'oj'
+                pos_hint: {"top": .5, "x": 0}
+                size_hint: 1, .1
+            ImageButton:
+                source:"image0.jpg"
+                on_release:
+                    print("clicked")
+                    app.root.current = "misc_screen"
+                pos_hint: {"top": .9, "center_x": 1}
+                size_hint: .75, .75
+
+        BoxLayout:
+            orientation:'vertical'
+            pos_hint: {"top": .875, "x": 0}
+            size_hint: 1, .1
+            rows:2
+            cols:1
+            Label:
+                id:recycle_label
+                text: "hello yung blood"
+                text_size: self.size
+                font_size: 45
+                pos_hint: {"top": .95, "x": .06}
+                size_hint: 1, .1
+            Label:
+                id:status
+                text: "heres ur score yung blood"
+                text_size: self.size
+                font_size: 40
+                pos_hint: {"top": .82, "x": .06}
+                size_hint: 1, .1
+
+
+        BoxLayout:
+            pos_hint: {"top": .7, "x": 0}
+            size_hint: 1, .35
+            rows:1
+            cols:2
+            spacing:15
+            padding:15
+            ImageButton:
+                #padding:10
+                source:"glassbottle.png"
+                on_release:
+                    app.smallCount()
+                    print("pressed 1")
+            ImageButton:
+                #padding:10
+                source:"glassbottle.png"
+                on_release:
+                    app.bigCount()
+                    print("pressed 2")
+
+        BoxLayout:
+            pos_hint: {"top": .35, "x": 0}
+            size_hint: 1, .125
+            padding:15
+            valign:'bottom'
+            rows:1
+            cols:1
+            Button:
+                text: "Enter an amount!"
+                on_release:
+                    print("enter plz")

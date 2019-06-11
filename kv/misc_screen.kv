@@ -1,0 +1,35 @@
+<Misc>:
+    space_x:self.size[0]/3
+
+    canvas.before:
+        Color:
+            rgba: (.7, 1, .6, .5)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    GridLayout:
+        size_hint_y:None
+        height: 80
+        orientation: "vertical"
+        spacing: 20
+        cols: 1
+        size:root.width, root.height
+        padding:80
+        Label:
+            id: tincans
+            text: "text"
+        Label:
+            id:glassbottles
+            text:"more text"
+        Label:
+            id:plasticbottles
+            text:"even more text"
+        Label:
+            id:other
+            text:"the mostest text"
+
+        Button:
+            text:"Log Out"
+            on_release:
+                app.sign_out()

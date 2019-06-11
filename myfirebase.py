@@ -40,15 +40,13 @@ class MyFirebase():
             app.local_id = localId
             app.id_token = idToken
 
-            my_payload = '{"nickname": "", "avatar": "image0.jpg", "status": "noob", "recycled": "0"}'
+            my_payload = '{"nickname": "something", "avatar": "image0.jpg", "status": "Horseman", "recycled": "0", "smallBottles": "0", "bigBottles": "0"}'
             post_request = requests.patch("https://recyclingapp-44e68.firebaseio.com/" + localId + ".json?auth=" + idToken,
             data=my_payload)
             print(post_request.ok)
             print(json.loads(post_request.content.decode()))
 
             app.root.current = "name_screen"
-
-            #app.root.current = "home_screen"
 
 
         if signup_request.ok == False:
@@ -102,10 +100,9 @@ class MyFirebase():
             nname = data["nickname"]
             stat = data["status"]
 
-            app.root.ids["home_screen"].ids["recycle_label"].text = str(cM)
-            app.root.ids["home_screen"].ids["status"].text = stat
-            app.root.ids["home_screen"].ids["nickname"].text = nname
-
+            app.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
+            app.root.ids["soul_screen"].ids["status"].text = stat
+            #app.root.ids["soul_screen"].ids["nickname"].text = nname
             app.on_start()
 
 
