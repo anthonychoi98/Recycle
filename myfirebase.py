@@ -7,10 +7,6 @@ class MyFirebase():
     wapik = "AIzaSyBvGJKPt0u1NGMku6SqBQwKCcD87QSG23w" #web API key
     refresh_token_file = "refresh_token.txt"
 
-    #def patch(self, JSON):
-        #to_database = json.loads(JSON)
-        #requests.patch(url = self.url, json = to_database)
-
     def sign_up(self, email, password):
         #firebase returns localID,authID,and a refreshToken
         app = App.get_running_app()
@@ -40,7 +36,7 @@ class MyFirebase():
             app.local_id = localId
             app.id_token = idToken
 
-            my_payload = '{"nickname": "something", "avatar": "image0.jpg", "status": "Horseman", "recycled": "0", "smallBottles": "0", "bigBottles": "0"}'
+            my_payload = '{"nickname": "something", "avatar": "image0.jpg", "status": "Horseman", "recycled": "0", "total_recycled": "0", "smallBottles": "0", "bigBottles": "0"}'
             post_request = requests.patch("https://recyclingapp-44e68.firebaseio.com/" + localId + ".json?auth=" + idToken,
             data=my_payload)
             print(post_request.ok)

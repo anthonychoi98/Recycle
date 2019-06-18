@@ -1,0 +1,46 @@
+<EntryWindow>:
+    canvas.before:
+        Color:
+            rgba: (.7, 1, .6, .5)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+
+    GridLayout:
+        cols: 2
+        padding: 40
+        spacing: 40
+        Label:
+            text:
+        Label:
+            text:
+        TextInput:
+            id:small_input
+            hint_text:"Number of small bottles"
+            multiline: False
+        Button:
+            text: "Submit"
+            on_release:
+                app.smallCount(small_input.text)
+                #app.root.current = "soul_screen"
+
+        TextInput:
+            id:big_input
+            hint_text:"Number of big bottles"
+            multiline: False
+
+        Button:
+            text: "Submit"
+            on_release:
+                app.bigCount(big_input.text)
+                #app.root.current = "soul_screen"
+        Label:
+
+        Button:
+            text: "Cancel"
+            on_release:
+                app.root.current = "soul_screen"
+
+
+        Label:

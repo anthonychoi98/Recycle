@@ -17,17 +17,22 @@
         size:root.width, root.height
         padding:80
         Label:
+        #show total recycled, show num of big/small bottles...
             id: tincans
             text: "text"
-        Label:
-            id:glassbottles
-            text:"more text"
-        Label:
-            id:plasticbottles
-            text:"even more text"
-        Label:
+        Button:
+            text:"Undo"
+            on_release:
+                app.root.current="undo_screen"
+        Button:
+            text:"Reset Bin"
+            on_release:
+                app.resetBin()
+        Button:
             id:other
-            text:"the mostest text"
+            text:"Go Back"
+            on_release:
+                app.root.current = "soul_screen"
 
         Button:
             text:"Log Out"

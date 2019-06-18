@@ -3,6 +3,8 @@
 #: include kv/name_screen.kv
 #: include kv/misc_screen.kv
 #: include kv/soul_screen.kv
+#: include kv/entry_screen.kv
+#: include kv/undo_screen.kv
 #:import Factory kivy.factory.Factory
 
 
@@ -23,6 +25,13 @@ WindowManager:
     SoulWindow:
         name:"soul_screen"
         id:soul_screen
+    EntryWindow:
+        name:"entry_screen"
+        id:entry_screen
+    UndoWindow:
+        name:"undo_screen"
+        id:undo_screen
+
 
 <P>:
     #on_open:

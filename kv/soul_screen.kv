@@ -67,23 +67,24 @@
                 #padding:10
                 source:"glassbottle.png"
                 on_release:
-                    app.smallCount()
+                    app.smallCount(1)
                     print("pressed 1")
             ImageButton:
                 #padding:10
                 source:"glassbottle.png"
                 on_release:
-                    app.bigCount()
+                    app.bigCount(1)
                     print("pressed 2")
 
         BoxLayout:
             pos_hint: {"top": .35, "x": 0}
             size_hint: 1, .125
-            padding:15
+            padding:20
             valign:'bottom'
             rows:1
-            cols:1
+            cols:2
             Button:
-                text: "Enter an amount!"
+                text: "Enter a specific amount!"
                 on_release:
+                    app.root.current = "entry_screen"
                     print("enter plz")
