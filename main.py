@@ -43,6 +43,9 @@ class Misc(Screen):
 class UndoWindow(Screen):
     pass
 
+class DetailsWindow(Screen):
+    pass
+
 class WindowManager(ScreenManager):
     pass
 
@@ -88,6 +91,8 @@ class MyApp(App):
             self.username = n
             self.root.ids["soul_screen"].ids["recycle_label"].text = str(cashMoney)
             self.root.ids['soul_screen'].ids['status'].text = status
+
+            self.updateDetails()
             #self.root.ids["soul_screen"].ids["nickname"].text = n
             self.root.current="soul_screen"
         except:
@@ -189,7 +194,7 @@ class MyApp(App):
         stats = data["status"]
         smallB = data["smallBottles"]
 
-        small_B = int(smallB) + 1
+        small_B = int(smallB) + int(num)
         num = int(num)
         cM = float(cash_M) + (num*1.05)
         t_cM = float(total_recycled) + (num*1.05)
@@ -211,6 +216,8 @@ class MyApp(App):
 
         self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
 
+        self.updateDetails()
+
         sHintText = self.root.ids["entry_screen"].ids["small_input"].text
         if(sHintText != ""):
             self.root.ids["entry_screen"].ids["small_input"].text = ''
@@ -226,7 +233,7 @@ class MyApp(App):
         bigB = data["bigBottles"]
 
         #increment # of big bottles, and curr money, total money
-        big_B = int(bigB) + 1
+        big_B = int(bigB) + int(num)
         num = int(num)
 
         cM = float(cash_M) + (num*9.10)
@@ -254,6 +261,9 @@ class MyApp(App):
         #update score/money
         self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
 
+        #update details_screen
+        self.updateDetails()
+
         #clear entry screen, return home
         bHintText = self.root.ids["entry_screen"].ids["big_input"].text
         if(bHintText != ""):
@@ -271,7 +281,7 @@ class MyApp(App):
         stats = data["status"]
         smallB = data["smallBottles"]
 
-        small_B = int(smallB) - 1
+        small_B = int(smallB) - int(num)
         num = int(num)
         cM = float(cash_M) - (num*1.05)
         t_cM = float(total_recycled) - (num*1.05)
@@ -293,8 +303,10 @@ class MyApp(App):
 
         self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
 
+        self.updateDetails()
+
         sHintText = self.root.ids["undo_screen"].ids["small_input"].text
-        if(usHintText != ""):
+        if(sHintText != ""):
             self.root.ids["undo_screen"].ids["small_input"].text = ''
             self.root.current = "soul_screen"
 
@@ -308,7 +320,7 @@ class MyApp(App):
         bigB = data["bigBottles"]
 
         #increment # of big bottles, and curr money, total money
-        big_B = int(bigB) - 1
+        big_B = int(bigB) - int(num)
         num = int(num)
 
         cM = float(cash_M) - (num*9.10)
@@ -336,6 +348,8 @@ class MyApp(App):
         #update score/money
         self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
 
+        self.updateDetails()
+
         #clear entry screen, return home
         bHintText = self.root.ids["undo_screen"].ids["big_input"].text
         if(bHintText != ""):
@@ -352,6 +366,22 @@ class MyApp(App):
         pass
 
     def enterAmount(self, amount):
+        pass
+
+    def updateDetails(self):
+        result = requests.get('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token)
+        data = json.loads(result.content.decode())
+        sB = data["smallBottles"]
+        bB = data["bigBottles"]
+        totalCash = data["total_recycled"]
+
+        totalCash = float(totalCash)
+        cM ='${:,.2f}'.format(totalCash)
+        #print(cM)
+
+        self.root.ids["details_screen"].ids["smallBottles"].text = str(sB)
+        self.root.ids["details_screen"].ids["bigBottles"].text = str(bB)
+        self.root.ids["details_screen"].ids["totalMoney"].text = str(cM)
         pass
 
 
@@ -381,6 +411,9 @@ class MyApp(App):
         self.root.ids.login_screen.ids.pwd.text = ""
         self.root.ids.soul_screen.ids.recycle_label.text=""
         self.root.ids.soul_screen.ids.status.text=""
+        self.root.ids.details_screen.ids.bigBottles.text=""
+        self.root.ids.details_screen.ids.smallBottles.text=""
+        self.root.ids.details_screen.ids.totalMoney.text=""
         #self.root.ids.soul_screen.ids.nickname.text=""
 
 

@@ -16,10 +16,11 @@
         cols: 1
         size:root.width, root.height
         padding:80
-        Label:
+        Button:
         #show total recycled, show num of big/small bottles...
-            id: tincans
-            text: "text"
+            text: "See Your Details"
+            on_release:
+                app.root.current="details_screen"
         Button:
             text:"Undo"
             on_release:

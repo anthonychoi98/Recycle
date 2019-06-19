@@ -1,0 +1,48 @@
+<DetailsWindow>:
+    space_x:self.size[0]/3
+
+    canvas.before:
+        Color:
+            rgba: (.7, 1, .6, .5)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    GridLayout:
+        size_hint_y:None
+        height: 80
+        orientation: "vertical"
+        spacing: 20
+        cols: 2
+        size:root.width, root.height
+        padding:80
+
+        Label:
+            text:"Total of Small Bottles"
+        Label:
+            id:smallBottles
+            text:"num"
+        Label:
+            text:"Total of Big Bottles"
+        Label:
+            id:bigBottles
+            text:"some num"
+        Label:
+            text:"Total Money Recycled"
+        Label:
+            id:totalMoney
+            text:"place"
+        FloatLayout:
+            spacing: 80
+            Button:
+                size_hint:(1.75, .6)
+                pos_hint: {'center_y': .9, 'center_x': 1}
+                text:"Status Achievements"
+                on_release:
+                    app.root.current = "status_screen"
+            Button:
+                size_hint:(1.75, .6)
+                pos_hint: {'center_y': .15, 'center_x': 1}
+                text:"Go Back"
+                on_release:
+                    app.root.current = "misc_screen"
