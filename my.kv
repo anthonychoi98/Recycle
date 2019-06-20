@@ -6,7 +6,6 @@
 #: include kv/entry_screen.kv
 #: include kv/undo_screen.kv
 #: include kv/details_screen.kv
-#:import Factory kivy.factory.Factory
 
 
 WindowManager:
@@ -37,7 +36,8 @@ WindowManager:
         id:details_screen
 
 
-<P>:
+
+<P1>:
     #on_open:
     #    print("hello")
     #    label.text = "You have been promoted to"
@@ -54,3 +54,24 @@ WindowManager:
         pos_hint: {"x":0.1, "y":0.1}
         on_release:
             print("change screen to achievements")
+
+
+<P2>:
+    #on_open:
+    #    print("hello")
+    #    label.text = "You have been promoted to"
+
+    Button:
+        text: "Yes"
+        size_hint: .8, .2
+        pos_hint: {"x":0.1, "y":0.55}
+        on_release:
+            print("change screen to achievements")
+            app.resetBin()
+    Button:
+        text: "Cancel"
+        size_hint: .8, .2
+        pos_hint: {"x":0.1, "y":0.25}
+        on_release:
+            print("change screen to achievements")
+            app.root.current="soul_screen"

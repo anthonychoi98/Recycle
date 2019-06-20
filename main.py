@@ -52,7 +52,10 @@ class WindowManager(ScreenManager):
 class ImageButton(ButtonBehavior, Image):
     pass
 
-class P(FloatLayout):
+class P1(FloatLayout):
+    pass
+
+class P2(FloatLayout):
     pass
 
 sm = Builder.load_file("my.kv")
@@ -98,11 +101,15 @@ class MyApp(App):
         except:
             pass
 
-    def status_popup(self, stats):
-        show = P()
-        txt = "You have been promoted to " + stats
-        #self.root.ids["popup_screen"].ids["rank"].text = txt
-        popupWindow = Popup(title="Congratulations, you've leveled up!", content=show, size_hint=(.8,.4))
+    def check_popup(self, title, text):
+        show = P2()
+        popupWindow = Popup(title=title, content=show, size_hint=(.8,.4))
+        popupWindow.open()
+
+    def status_popup(self, title, text):
+        #have two different popups, 1 for stats, 1 for making sure if you wanna resetbin
+        show = P1()
+        popupWindow = Popup(title=title, content=show, size_hint=(.8,.4))
         popupWindow.open()
 
     def init_status(self, stats):
@@ -111,14 +118,16 @@ class MyApp(App):
     def check_status(self, cashMoney, stats):
         if(cashMoney > 10.0 and cashMoney < 20.0 and stats != "Lancer"):
             newStatus = "Lancer"
-            self.status_popup(newStatus)
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
             requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
             print("Lancer status achieved!")
         if(cashMoney > 20.0 and cashMoney < 40.0 and stats != "Gallant"):
             newStatus = "Gallant"
-            self.status_popup(newStatus)
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
             requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
@@ -126,8 +135,8 @@ class MyApp(App):
         if(cashMoney > 40.0 and cashMoney < 60.0):
             if(stats != "Keeper"):
                 newStatus = "Keeper"
-                #print("SHOLD BE HERE")
-                self.status_popup(newStatus)
+                text = "Your status has updated!"
+                self.status_popup(newStatus, text)
                 statsPatch = '{"status": "%s"}'% newStatus
                 requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
                 self.root.ids["soul_screen"].ids["status"].text = newStatus
@@ -135,14 +144,16 @@ class MyApp(App):
         if(cashMoney > 60.0 and cashMoney < 80.0):
             if(stats != "Protector"):
                 newStatus = "Protector"
-                self.status_popup(newStatus)
+                text = "Your status has updated!"
+                self.status_popup(newStatus, text)
                 statsPatch = '{"status": "%s"}'% newStatus
                 requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
                 self.root.ids["soul_screen"].ids["status"].text = newStatus
                 print("Protector status achieved!")
         if(cashMoney > 80.0 and cashMoney < 100.0 and stats != "Defender"):
             newStatus = "Defender"
-            self.status_popup(newStatus)
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
             requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
@@ -150,19 +161,23 @@ class MyApp(App):
         if(cashMoney > 100.0 and cashMoney < 140.0 and stats != "Warder"):
             print(stats, "this the status")
             newStatus = "Warder"
-            self.status_popup(newStatus)
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
             self.root.ids["soul_screen"].ids["status"].text = newStatus
             print(newStatus," status achieved!")
         if(cashMoney > 140.0 and cashMoney < 200.0 and stats != "Guardian"):
             newStatus = "Guardian"
-            self.status_popup(newStatus)
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
             requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
             print(newStatus, ", status achieved!")
         if(cashMoney > 200.0 and cashMoney < 300.0 and stats != "Chevaliar"):
             newStatus = "Chevaliar"
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
             requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
@@ -171,14 +186,16 @@ class MyApp(App):
             newStatus = "Justiciar"
             statsPatch = '{"status": "%s"}'% newStatus
             #print("before is : ", statsPatch)
-            self.status_popup(newStatus)
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
             print(newStatus, " status achieved!")
         if(cashMoney > 500.0 and stats != "Paladin"):
             newStatus = "Paladin"
+            text = "Your status has updated!"
+            self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
-            self.status_popup(newStatus)
             requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
             print(newStatus, " status achieved! Congratulations!!")
