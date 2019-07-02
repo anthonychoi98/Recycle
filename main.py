@@ -17,6 +17,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.uix.modalview import ModalView
 import json
+import webbrowser
 import requests
 
 class HomeWindow(Screen):
@@ -61,6 +62,7 @@ class P2(FloatLayout):
 sm = Builder.load_file("my.kv")
 
 LabelBase.register(name="oj", fn_regular="orange juice 2.0.ttf")
+LabelBase.register(name="gb", fn_regular="Grenze-SemiBold.ttf")
 
 class MyApp(App):
     refresh_token_file = "refresh_token.txt"
@@ -100,6 +102,10 @@ class MyApp(App):
             self.root.current="soul_screen"
         except:
             pass
+
+    def opensite(self):
+        webbrowser.open('https://www.calrecycle.ca.gov/BevContainer/Consumers/Facts/')
+        #print('hello')
 
     def check_popup(self, title, text):
         show = P2()
@@ -210,8 +216,10 @@ class MyApp(App):
 
         stats = data["status"]
         smallB = data["smallBottles"]
+        csmallB = data["csmallBottles"]
 
         small_B = int(smallB) + int(num)
+        csmall_B = int(csmallB) + int(num)
         num = int(num)
         cM = float(cash_M) + (num*1.05)
         t_cM = float(total_recycled) + (num*1.05)
@@ -221,17 +229,17 @@ class MyApp(App):
         cashMoneyPatch = '{"recycled": "%s"}'% str(cM)
         t_cashMoneyPatch = '{"total_recycled": "%s"}'% str(t_cM)
         smallB_Patch = '{"smallBottles": "%s"}' % str(small_B)
+        csmallB_Patch = '{"csmallBottles": "%s"}' % str(csmall_B)
 
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cashMoneyPatch)
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=t_cashMoneyPatch)
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=smallB_Patch)
+        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=csmallB_Patch)
 
         cM = float(cM)
         cM ='${:,.2f}'.format(cM)
         print(cM)
         self.check_status(cashMoney_arg, stats)
-
-        self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
 
         self.updateDetails()
 
@@ -248,9 +256,11 @@ class MyApp(App):
         total_recycled = data["total_recycled"]
         stats = data["status"]
         bigB = data["bigBottles"]
+        cbigB = data["cbigBottles"]
 
         #increment # of big bottles, and curr money, total money
         big_B = int(bigB) + int(num)
+        cbig_B = int(cbigB) + int(num)
         num = int(num)
 
         cM = float(cash_M) + (num*9.10)
@@ -262,11 +272,13 @@ class MyApp(App):
         cashMoneyPatch = '{"recycled": "%s"}'% str(cM)
         t_cashMoneyPatch = '{"total_recycled": "%s"}'% str(t_cM)
         bigB_Patch = '{"bigBottles": "%s"}' % str(big_B)
+        cbigB_Patch = '{"cbigBottles": "%s"}' % str(cbig_B)
 
         #update total money, current bin money, and # of big bottles
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cashMoneyPatch)
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=t_cashMoneyPatch)
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=bigB_Patch)
+        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cbigB_Patch)
 
         cM = float(cM)
         cM ='${:,.2f}'.format(cM)
@@ -274,9 +286,6 @@ class MyApp(App):
 
         #check if user has levelled up
         self.check_status(cashMoney_arg, stats)
-
-        #update score/money
-        self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
 
         #update details_screen
         self.updateDetails()
@@ -297,35 +306,44 @@ class MyApp(App):
 
         stats = data["status"]
         smallB = data["smallBottles"]
+        csmallB = data["csmallBottles"]
+        #CHECK IF USER CAN DELETE CERTAIN AMOUNT OF BOTTLES...
 
         small_B = int(smallB) - int(num)
+        csmall_B = int(csmallB) - int(num)
         num = int(num)
         cM = float(cash_M) - (num*1.05)
         t_cM = float(total_recycled) - (num*1.05)
 
-        cashMoney_arg = t_cM
+        if(cM < 0):
+            print(cM)
+            msg = "Invalid Submission"
+            self.root.ids["undo_screen"].ids["errormsg"].text = msg
 
-        cashMoneyPatch = '{"recycled": "%s"}'% str(cM)
-        t_cashMoneyPatch = '{"total_recycled": "%s"}'% str(t_cM)
-        smallB_Patch = '{"smallBottles": "%s"}' % str(small_B)
+        else:
+            cashMoney_arg = t_cM
 
-        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cashMoneyPatch)
-        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=t_cashMoneyPatch)
-        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=smallB_Patch)
+            cashMoneyPatch = '{"recycled": "%s"}'% str(cM)
+            t_cashMoneyPatch = '{"total_recycled": "%s"}'% str(t_cM)
+            smallB_Patch = '{"smallBottles": "%s"}' % str(small_B)
+            csmallB_Patch = '{"csmallBottles": "%s"}' % str(csmall_B)
 
-        cM = float(cM)
-        cM ='${:,.2f}'.format(cM)
-        print(cM)
-        self.check_status(cashMoney_arg, stats)
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cashMoneyPatch)
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=t_cashMoneyPatch)
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=smallB_Patch)
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=csmallB_Patch)
 
-        self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
+            cM = float(cM)
+            cM ='${:,.2f}'.format(cM)
+            print(cM)
+            self.check_status(cashMoney_arg, stats)
+            #updates money/recycling labels
+            self.updateDetails()
 
-        self.updateDetails()
-
-        sHintText = self.root.ids["undo_screen"].ids["small_input"].text
-        if(sHintText != ""):
-            self.root.ids["undo_screen"].ids["small_input"].text = ''
-            self.root.current = "soul_screen"
+            sHintText = self.root.ids["undo_screen"].ids["small_input"].text
+            if(sHintText != ""):
+                self.root.ids["undo_screen"].ids["small_input"].text = ''
+                self.root.current = "soul_screen"
 
 
     def subBigCount(self, num):
@@ -335,50 +353,66 @@ class MyApp(App):
         total_recycled = data["total_recycled"]
         stats = data["status"]
         bigB = data["bigBottles"]
+        cbigB = data["cbigBottles"]
 
         #increment # of big bottles, and curr money, total money
         big_B = int(bigB) - int(num)
+        cbig_B = int(cbigB) - int(num)
         num = int(num)
 
         cM = float(cash_M) - (num*9.10)
         t_cM = float(total_recycled) - (num*9.10)
 
-        #check total recycled for leveling
-        cashMoney_arg = t_cM
+        if(cM < 0):
+            print(cM)
+            msg = "Invalid Submission"
+            self.root.ids["undo_screen"].ids["errormsg"].text = msg
 
-        cashMoneyPatch = '{"recycled": "%s"}'% str(cM)
-        t_cashMoneyPatch = '{"total_recycled": "%s"}'% str(t_cM)
-        bigB_Patch = '{"bigBottles": "%s"}' % str(big_B)
+        else:
+            #check total recycled for leveling
+            cashMoney_arg = t_cM
 
-        #update total money, current bin money, and # of big bottles
-        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cashMoneyPatch)
-        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=t_cashMoneyPatch)
-        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=bigB_Patch)
+            cashMoneyPatch = '{"recycled": "%s"}'% str(cM)
+            t_cashMoneyPatch = '{"total_recycled": "%s"}'% str(t_cM)
+            bigB_Patch = '{"bigBottles": "%s"}' % str(big_B)
+            cbigB_Patch = '{"cbigBottles": "%s"}' % str(cbig_B)
 
-        cM = float(cM)
-        cM ='${:,.2f}'.format(cM)
-        print(cM)
+            #update total money, current bin money, and # of big bottles
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cashMoneyPatch)
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=t_cashMoneyPatch)
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=bigB_Patch)
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=cbigB_Patch)
 
-        #check and update user status
-        self.check_status(cashMoney_arg, stats)
+            cM = float(cM)
+            cM ='${:,.2f}'.format(cM)
+            print(cM)
 
-        #update score/money
-        self.root.ids["soul_screen"].ids["recycle_label"].text = str(cM)
+            #check and update user status
+            self.check_status(cashMoney_arg, stats)
 
-        self.updateDetails()
+            #update score/money
+            self.updateDetails()
 
-        #clear entry screen, return home
-        bHintText = self.root.ids["undo_screen"].ids["big_input"].text
-        if(bHintText != ""):
-            self.root.ids["undo_screen"].ids["big_input"].text = ''
-            self.root.current = "soul_screen"
+            #clear entry screen, return home
+            bHintText = self.root.ids["undo_screen"].ids["big_input"].text
+            if(bHintText != ""):
+                self.root.ids["undo_screen"].ids["big_input"].text = ''
+                self.root.current = "soul_screen"
 
 
     def resetBin(self):
         res = 0
         binResetPatch = '{"recycled": "%s"}'% str(res)
+        c_sb_Patch = '{"csmallBottles": "%s"}' % str(res)
+        c_bb_Patch = '{"cbigBottles": "%s"}' % str(res)
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=binResetPatch)
+        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=c_sb_Patch)
+        requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=c_bb_Patch)
+
         self.root.ids["soul_screen"].ids["recycle_label"].text = str(res)
+        self.root.ids["details_screen"].ids["currentsmallBottles"].text = str(res)
+        self.root.ids["details_screen"].ids["currentbigBottles"].text = str(res)
+
         print("resetted")
         pass
 
@@ -390,15 +424,25 @@ class MyApp(App):
         data = json.loads(result.content.decode())
         sB = data["smallBottles"]
         bB = data["bigBottles"]
+        cSB = data["csmallBottles"]
+        cBB = data["cbigBottles"]
         totalCash = data["total_recycled"]
+        currentCash = data["recycled"]
 
         totalCash = float(totalCash)
         cM ='${:,.2f}'.format(totalCash)
         #print(cM)
+        currentCash = float(currentCash)
+        cCM = '${:,.2f}'.format(currentCash)
 
+        self.root.ids["details_screen"].ids["currentsmallBottles"].text = str(cSB)
+        self.root.ids["details_screen"].ids["currentbigBottles"].text = str(cBB)
+        self.root.ids["details_screen"].ids["currentMoney"].text = str(cCM)
         self.root.ids["details_screen"].ids["smallBottles"].text = str(sB)
         self.root.ids["details_screen"].ids["bigBottles"].text = str(bB)
         self.root.ids["details_screen"].ids["totalMoney"].text = str(cM)
+        self.root.ids["soul_screen"].ids["recycle_label"].text = str(cCM)
+        self.root.ids["undo_screen"].ids["errormsg"].text = ""
         pass
 
 

@@ -3,7 +3,7 @@
 
     canvas.before:
         Color:
-            rgba: (.7, 1, .6, .5)
+            rgba: (0, .46, .2, 1)
         Rectangle:
             size: self.size
             pos: self.pos
@@ -19,24 +19,34 @@
         Button:
         #show total recycled, show num of big/small bottles...
             text: "See Your Details"
+            font_name: 'gb'
+            font_size:40
             on_release:
                 app.root.current="details_screen"
         Button:
             text:"Undo"
+            font_name: 'gb'
+            font_size:40
             on_release:
                 app.root.current="undo_screen"
         Button:
             text:"Reset Bin"
+            font_name: 'gb'
+            font_size:40
             on_release:
                 app.check_popup("ARE YOU SURE?","")
 
         Button:
             id:other
             text:"Go Back"
+            font_name: 'gb'
+            font_size:40
             on_release:
                 app.root.current = "soul_screen"
 
         Button:
             text:"Log Out"
+            font_name: 'gb'
+            font_size:40
             on_release:
                 app.sign_out()

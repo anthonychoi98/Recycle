@@ -36,7 +36,7 @@ class MyFirebase():
             app.local_id = localId
             app.id_token = idToken
 
-            my_payload = '{"nickname": "something", "avatar": "image0.jpg", "status": "Horseman", "recycled": "0", "total_recycled": "0", "smallBottles": "0", "bigBottles": "0"}'
+            my_payload = '{"nickname": "something", "avatar": "image0.jpg", "status": "Horseman", "recycled": "0", "total_recycled": "0", "smallBottles": "0", "bigBottles": "0", "csmallBottles": "0", "cbigBottles": "0"}'
             post_request = requests.patch("https://recyclingapp-44e68.firebaseio.com/" + localId + ".json?auth=" + idToken,
             data=my_payload)
             print(post_request.ok)

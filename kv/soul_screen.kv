@@ -2,7 +2,8 @@
     FloatLayout:
         canvas.before:
             Color:
-                rgba: (.7, 1, .6, .5)
+                #rgba: (.7, 1, .6, .5)
+                rgba: (1, 1, .9, 1)
             Rectangle:
                 size: self.size
                 pos: self.pos
@@ -12,7 +13,7 @@
             size_hint: 1, .1
             canvas.before:
                 Color:
-                    rgba: (0, .6, .3, 1)
+                    rgba: (0, .46, .2, 1)
                 Rectangle:
                     size: self.size
                     pos: self.pos
@@ -37,23 +38,28 @@
         BoxLayout:
             orientation:'vertical'
             pos_hint: {"top": .875, "x": 0}
-            size_hint: 1, .1
+            size_hint: 1, .14
             rows:2
             cols:1
+
             Label:
                 id:recycle_label
+                color: 0,0,0,1
                 text: "hello yung blood"
+                font_name: 'gb'
                 text_size: self.size
-                font_size: 45
-                pos_hint: {"top": .95, "x": .06}
-                size_hint: 1, .1
+                font_size: 60
+                pos_hint: {"top": 0, "x": .36}
+                size_hint: 1, 1
             Label:
                 id:status
                 text: "heres ur score yung blood"
+                font_name: 'gb'
+                color: 0,0,0,1
                 text_size: self.size
-                font_size: 40
-                pos_hint: {"top": .82, "x": .06}
-                size_hint: 1, .1
+                font_size: 50
+                pos_hint: {"top":0 , "x": .38}
+                size_hint: 1, 1
 
 
         BoxLayout:
@@ -65,13 +71,13 @@
             padding:15
             ImageButton:
                 #padding:10
-                source:"glassbottle.png"
+                source:"smallb.gif"
                 on_release:
                     app.smallCount(1)
                     print("pressed 1")
             ImageButton:
                 #padding:10
-                source:"glassbottle.png"
+                source:"bigb.gif"
                 on_release:
                     app.bigCount(1)
                     print("pressed 2")
@@ -85,6 +91,8 @@
             cols:2
             Button:
                 text: "Enter a specific amount!"
+                font_name: 'gb'
+                font_size:40
                 on_release:
                     app.root.current = "entry_screen"
                     print("enter plz")
