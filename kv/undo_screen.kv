@@ -8,9 +8,16 @@
 
 
     GridLayout:
-        cols: 2
+        cols: 1
         padding: 40
         spacing: 40
+
+        Label:
+
+        Label:
+            font_name:'gb'
+            font_size:40
+            text:"Enter number of bottles to undo"
         Label:
             id:errormsg
             color: (1,0,0,.7)
@@ -25,6 +32,8 @@
             multiline: False
         Button:
             text: "Submit"
+            font_name:'gb'
+            font_size:40
             on_release:
                 app.subSmallCount(small_input.text)
                 #app.root.current = "soul_screen"
@@ -36,13 +45,16 @@
 
         Button:
             text: "Submit"
+            font_name:'gb'
+            font_size:40
             on_release:
                 app.subBigCount(big_input.text)
                 #app.root.current = "soul_screen"
-        Label:
 
         Button:
             text: "Cancel"
+            font_name:'gb'
+            font_size:40
             on_release:
                 app.root.current = "soul_screen"
 

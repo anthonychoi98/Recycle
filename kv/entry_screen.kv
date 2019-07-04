@@ -8,11 +8,14 @@
 
 
     GridLayout:
-        cols: 2
+        cols: 1
         padding: 40
         spacing: 40
         Label:
-            text:
+        Label:
+            text:"Please Enter Number of Bottles"
+            font_name:'gb'
+            font_size:40
         Label:
             text:
         TextInput:
@@ -21,6 +24,8 @@
             multiline: False
         Button:
             text: "Submit"
+            font_name:'gb'
+            font_size:40
             on_release:
                 app.smallCount(small_input.text)
                 #app.root.current = "soul_screen"
@@ -32,13 +37,15 @@
 
         Button:
             text: "Submit"
+            font_name:'gb'
+            font_size:40
             on_release:
                 app.bigCount(big_input.text)
                 #app.root.current = "soul_screen"
-        Label:
-
         Button:
             text: "Cancel"
+            font_name:'gb'
+            font_size:40
             on_release:
                 app.root.current = "soul_screen"
 
