@@ -6,6 +6,7 @@
 #: include kv/entry_screen.kv
 #: include kv/undo_screen.kv
 #: include kv/details_screen.kv
+#: include kv/howto_screen.kv
 
 
 WindowManager:
@@ -34,14 +35,13 @@ WindowManager:
     DetailsWindow:
         name:"details_screen"
         id:details_screen
+    HowToWindow:
+        name:"howto_screen"
+        id: howto_screen
 
 
-
+#the popup when status changes
 <P1>:
-    #on_open:
-    #    print("hello")
-    #    label.text = "You have been promoted to"
-
     Label:
         id:label
         text:"Status Updated!"
@@ -55,23 +55,18 @@ WindowManager:
         on_release:
             print("change screen to achievements")
 
-
+#the popup for checking if they want to reset current bin
 <P2>:
-    #on_open:
-    #    print("hello")
-    #    label.text = "You have been promoted to"
-
     Button:
         text: "Yes"
         size_hint: .8, .2
         pos_hint: {"x":0.1, "y":0.55}
         on_release:
-            print("change screen to achievements")
             app.resetBin()
+            app.root.current="soul_screen"
     Button:
         text: "Cancel"
         size_hint: .8, .2
         pos_hint: {"x":0.1, "y":0.25}
         on_release:
-            print("change screen to achievements")
             app.root.current="soul_screen"

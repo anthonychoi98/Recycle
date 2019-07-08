@@ -20,7 +20,8 @@ from kivy.properties import StringProperty
 import json
 import webbrowser
 import requests
-
+#minor bug fixes like updating current money properly when reset,
+#and correcting display of money w/ dollar signs, and adding the tutorial screen
 class HomeWindow(Screen):
     pass
 
@@ -46,6 +47,9 @@ class UndoWindow(Screen):
     pass
 
 class DetailsWindow(Screen):
+    pass
+
+class HowToWindow(Screen):
     pass
 
 class WindowManager(ScreenManager):
@@ -109,7 +113,6 @@ class MyApp(App):
 
     def opensite(self):
         webbrowser.open('https://www.calrecycle.ca.gov/BevContainer/Consumers/Facts/')
-        #print('hello')
 
     def check_popup(self, title, text):
         show = P2()
@@ -311,7 +314,6 @@ class MyApp(App):
         stats = data["status"]
         smallB = data["smallBottles"]
         csmallB = data["csmallBottles"]
-        #CHECK IF USER CAN DELETE CERTAIN AMOUNT OF BOTTLES...
 
         small_B = int(smallB) - int(num)
         csmall_B = int(csmallB) - int(num)
@@ -406,18 +408,19 @@ class MyApp(App):
 
     def resetBin(self):
         res = 0
+        put = '$0.00'
         binResetPatch = '{"recycled": "%s"}'% str(res)
         c_sb_Patch = '{"csmallBottles": "%s"}' % str(res)
         c_bb_Patch = '{"cbigBottles": "%s"}' % str(res)
+
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=binResetPatch)
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=c_sb_Patch)
         requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=c_bb_Patch)
 
-        self.root.ids["soul_screen"].ids["recycle_label"].text = str(res)
+        self.root.ids["soul_screen"].ids["recycle_label"].text = put
         self.root.ids["details_screen"].ids["currentsmallBottles"].text = str(res)
         self.root.ids["details_screen"].ids["currentbigBottles"].text = str(res)
-
-        print("resetted")
+        self.root.ids["details_screen"].ids["currentMoney"].text = put
         pass
 
     def enterAmount(self, amount):
@@ -460,12 +463,10 @@ class MyApp(App):
         namePatch = '{"nickname": "%s"}'% they_name
         print(namePatch)
         name_req = requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=namePatch)
-        #self.root.ids["soul_screen"].ids["nickname"].text = they_name
         print(name_req.ok)
         print(json.loads(name_req.content.decode()))
 
     def sign_out(self):
-        #app = App.get_running_app()
 
         with open(self.refresh_token_file, 'w') as f:
             f.write("")
@@ -479,8 +480,6 @@ class MyApp(App):
         self.root.ids.details_screen.ids.bigBottles.text=""
         self.root.ids.details_screen.ids.smallBottles.text=""
         self.root.ids.details_screen.ids.totalMoney.text=""
-        #self.root.ids.soul_screen.ids.nickname.text=""
-
 
 
 recycle = MyApp()

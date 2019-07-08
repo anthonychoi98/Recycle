@@ -2,7 +2,6 @@
     FloatLayout:
         canvas.before:
             Color:
-                #rgba: (.7, 1, .6, .5)
                 rgba: (1, 1, .9, 1)
             Rectangle:
                 size: self.size
@@ -28,6 +27,7 @@
                 pos_hint: {"top": .5, "x": 0}
                 size_hint: 1, .1
             ImageButton:
+                #menu button which has simple animation when clicked
                 source: 'images/menu.png'
                 id: img
                 pos_hint: {"top": .85, "x": 0}
@@ -35,14 +35,12 @@
                 on_press:
                     print('pressing')
                     img.source = 'images/option-change.png'
-                    #root.command()
-                    #pos_hint: {"top": .85, "x": 0}
-                    #size_hint: .75, .75
                 on_release:
                     img.source = 'images/menu.png'
                     app.root.current = "misc_screen"
 
         BoxLayout:
+            #money savings and status
             orientation:'vertical'
             pos_hint: {"top": .875, "x": 0}
             size_hint: 1, .14
@@ -70,6 +68,7 @@
 
 
         BoxLayout:
+            #recycling buttons which also have simple animation when pressed
             pos_hint: {"top": .7, "x": 0}
             size_hint: 1, .35
             rows:1
@@ -77,7 +76,6 @@
             spacing:15
             padding:15
             ImageButton:
-                #padding:10
                 id: sb
                 source:"images/smallb.gif"
                 on_press:
@@ -86,7 +84,6 @@
                     app.smallCount(1)
                     sb.source ="images/smallb.gif"
             ImageButton:
-                #padding:10
                 id:bb
                 source:"images/bigb.gif"
                 on_press:
@@ -96,6 +93,7 @@
                     bb.source = "images/bigb.gif"
 
         BoxLayout:
+            #entering specific # of bottles, and ad below
             pos_hint: {"top": .32, "x": 0}
             size_hint: 1, .125
             padding:20
