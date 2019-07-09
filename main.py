@@ -16,7 +16,9 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.uix.modalview import ModalView
+from kivy.uix.scrollview import ScrollView
 from kivy.properties import StringProperty
+
 import json
 import webbrowser
 import requests
@@ -53,6 +55,7 @@ class HowToWindow(Screen):
     pass
 
 class WindowManager(ScreenManager):
+    
     pass
 
 class ImageButton(ButtonBehavior, Image):

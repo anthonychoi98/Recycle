@@ -12,14 +12,36 @@
         size_hint_y:None
         height: 80
         orientation: "vertical"
-        spacing: 20
-        cols: 2
+        spacing: 15
+        cols: 1
         size:root.width, root.height
         padding:75
 
         Label:
             text:"How to Use App"
+            size_hint: 1, .1
+            font_name:'gb'
+            font_size:50
+        Image:
+            source: "images/option-change.png"
+            size_hint: .1, .1
+
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            Label:
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1]
+
+                padding: 10, 10
+                text:
+                    'On the home screen, the left\n'+ 'button indicates that you have\n'+ 'placed a small bottle under 24\n'+ 'ounces in your recycling bin,\n'+ 'which counts as 5 cents per\n' + 'bottle. The right button indicates\n'+ 'that you have placed a\n'+ 'larger CRV recyclable in your\n'+ 'bin, each of which counts as\n'+ '10 cents. You are able to\n'+ 'reset your bin in the menu\n'+ ' which will reset your current\n'+ 'savings and bottles. Your total\n'+ 'accumulating savings and bottles\n'+ 'will still be visible in the See\n' + 'Your Details screen, and your\n' +  'status will not be affected by\n' + 'resetting. The reset bin button\n'+ 'should be used when you have\n' + 'taken your current recyclables to\n'+ 'the recycling center and cashed\n'+'them in already. Remember that you\n'+ 'will not be able to undo a\n'+ 'reset bin. You may enter a\n'+ 'specific number of bottles to\n'+ 'recycle or undo for one bottle\n'+ 'size at a time, and also your\n'+  'status is determined by how\n'+ 'many bottles you’ve recycled. '
+        Button:
+            size_hint: .1, .13
+            text: "Go Back"
             font_name:'gb'
             font_size:40
-        Label:
-            text:"On the home screen, the left button indicates that you have placed a small bottle under 24 ounces in your recycling bin, which counts as 5 cents per bottle. The right button indicates that you have placed a larger CRV recyclable in your bin, each of which counts as 10 cents. You are able to reset your bin in the menu which will reset your current savings and bottles. Your total accumulating savings and bottles will still be visible in the “See Your Achievements” screen, and your status will not be affected by resetting. The reset bin button should be used when you have taken your current recyclables to the recycling center and cashed them in already. Remember that you will not be able to undo a reset bin. You may enter a specific number of bottles to recycle or undo for one bottle size at a time, and also your status is determined by how many bottles you’ve recycled. "
+            on_release:
+                app.root.current = 'misc_screen'
