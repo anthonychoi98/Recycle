@@ -54,8 +54,10 @@ class DetailsWindow(Screen):
 class HowToWindow(Screen):
     pass
 
+class AchieveWindow(Screen):
+    pass
+
 class WindowManager(ScreenManager):
-    
     pass
 
 class ImageButton(ButtonBehavior, Image):

@@ -1,0 +1,46 @@
+<AchieveWindow>:
+    space_x:self.size[0]/3
+
+    canvas.before:
+        Color:
+            rgba: (0, .46, .2, 1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    GridLayout:
+        size_hint_y:None
+        height: 80
+        orientation: "vertical"
+        spacing: 15
+        cols: 1
+        size:root.width, root.height
+        padding:75
+
+        Label:
+            text:"Status Achievements"
+            size_hint: 1, .1
+            font_name:'gb'
+            font_size:50
+        Image:
+            source: "images/option-change.png"
+            size_hint: .1, .1
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            Label:
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding: 10, 10
+                text:"SOME TEXT\n" *2
+
+        Button:
+            size_hint: .1, .13
+            text: "Go Back"
+            font_name:'gb'
+            font_size:40
+            on_release:
+                app.root.transition = NoTransition()
+                app.root.current = 'misc_screen'

@@ -9,7 +9,20 @@
             pos: self.pos
 
     GridLayout:
-        size_hint_y:None
+        cols: 1
+        pos_hint: {"top": .95, "x": .45}
+        size_hint: .1 ,.2
+        Label:
+            text:"Details"
+            size_hint: 1, .1
+            font_name:'gb'
+            font_size:50
+        Image:
+            source: "images/option-change.png"
+            size_hint: .1, .1
+
+    GridLayout:
+        size_hint_y:.8
         height: 80
         orientation: "vertical"
         spacing: 20
@@ -18,56 +31,67 @@
         padding:75
 
         Label:
+            halign: 'center'
             text:"Current Small Bottles"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             id:currentsmallBottles
             text:"num"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             text:"Current Big Bottles"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             id:currentbigBottles
             text:"some num"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             text:"Current Money"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             id:currentMoney
             text:"place"
             font_name:'gb'
             font_size:40
-
         Label:
+            halign: 'center'
             text:"Total Small Bottles"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             id:smallBottles
             text:"num"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             text:"Total Big Bottles"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             id:bigBottles
             text:"some num"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             text:"Total Money"
             font_name:'gb'
             font_size:40
         Label:
+            halign: 'center'
             id:totalMoney
             text:"place"
             font_name:'gb'
@@ -76,6 +100,7 @@
         Label:
         FloatLayout:
             spacing: 80
+
             Button:
                 size_hint:(1.75, .6)
                 pos_hint: {'center_y': 1.4, 'center_x': 1}
@@ -91,4 +116,5 @@
                 font_name:'gb'
                 font_size:40
                 on_release:
+                    app.root.transition = NoTransition()
                     app.root.current = "misc_screen"

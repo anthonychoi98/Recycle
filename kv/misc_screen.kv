@@ -30,10 +30,20 @@
         Button:
             background_normal: ''
             background_color: 0, .46, .2, 1
+            text: "Status Achievements"
+            font_name: 'gb'
+            font_size:40
+            on_release:
+                app.root.transition = NoTransition()
+                app.root.current="achieve_screen"
+        Button:
+            background_normal: ''
+            background_color: 0, .46, .2, 1
             text:"Undo"
             font_name: 'gb'
             font_size:40
             on_release:
+                app.root.transition = NoTransition()
                 app.root.current="undo_screen"
         Button:
             background_normal: ''
@@ -50,6 +60,7 @@
             font_name: 'gb'
             font_size:40
             on_release:
+                app.root.transition = NoTransition()
                 app.root.current = "howto_screen"
 
         Button:
@@ -60,6 +71,7 @@
             font_name: 'gb'
             font_size:40
             on_release:
+                app.root.transition = NoTransition()
                 app.root.current = "soul_screen"
 
         Button:
