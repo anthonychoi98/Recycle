@@ -182,6 +182,7 @@ class MyApp(App):
             text = "Your status has updated!"
             self.status_popup(newStatus, text)
             statsPatch = '{"status": "%s"}'% newStatus
+            requests.patch('https://recyclingapp-44e68.firebaseio.com/' + self.local_id + '.json?auth=' + self.id_token, data=statsPatch)
             self.root.ids["soul_screen"].ids["status"].text = newStatus
             print(newStatus," status achieved!")
         if(cashMoney > 140.0 and cashMoney < 200.0 and stats != "Guardian"):
@@ -233,8 +234,8 @@ class MyApp(App):
         small_B = int(smallB) + int(num)
         csmall_B = int(csmallB) + int(num)
         num = int(num)
-        cM = float(cash_M) + (num*1.05)
-        t_cM = float(total_recycled) + (num*1.05)
+        cM = float(cash_M) + (num*.05)
+        t_cM = float(total_recycled) + (num*.05)
 
         cashMoney_arg = t_cM
 
@@ -275,8 +276,8 @@ class MyApp(App):
         cbig_B = int(cbigB) + int(num)
         num = int(num)
 
-        cM = float(cash_M) + (num*9.10)
-        t_cM = float(total_recycled) + (num*9.10)
+        cM = float(cash_M) + (num*.10)
+        t_cM = float(total_recycled) + (num*.10)
 
         #check total recycled for leveling
         cashMoney_arg = t_cM
@@ -314,7 +315,6 @@ class MyApp(App):
         data = json.loads(result.content.decode())
         cash_M = data["recycled"]
         total_recycled = data["total_recycled"]
-        print(total_recycled)
 
         stats = data["status"]
         smallB = data["smallBottles"]
@@ -323,8 +323,8 @@ class MyApp(App):
         small_B = int(smallB) - int(num)
         csmall_B = int(csmallB) - int(num)
         num = int(num)
-        cM = float(cash_M) - (num*1.05)
-        t_cM = float(total_recycled) - (num*1.05)
+        cM = float(cash_M) - (num*.05)
+        t_cM = float(total_recycled) - (num*.05)
 
         if(cM < 0):
             print(cM)
@@ -371,8 +371,8 @@ class MyApp(App):
         cbig_B = int(cbigB) - int(num)
         num = int(num)
 
-        cM = float(cash_M) - (num*9.10)
-        t_cM = float(total_recycled) - (num*9.10)
+        cM = float(cash_M) - (num*.10)
+        t_cM = float(total_recycled) - (num*.10)
 
         if(cM < 0):
             print(cM)

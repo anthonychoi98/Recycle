@@ -42,7 +42,7 @@ class MyFirebase():
             print(post_request.ok)
             print(json.loads(post_request.content.decode()))
 
-            app.root.current = "name_screen"
+            app.root.current = "soul_screen"
 
 
         if signup_request.ok == False:

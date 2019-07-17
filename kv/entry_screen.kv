@@ -12,10 +12,15 @@
         padding: 40
         spacing: 40
         Label:
+            size_hint_y:None
+            height:10
         Label:
             text:"Please Enter Number of Bottles"
             font_name:'gb'
             font_size:40
+        Image:
+            source: "images/option-change.png"
+            size_hint: 1, 1
         Label:
             text:
         TextInput:
@@ -28,7 +33,6 @@
             font_size:40
             on_release:
                 app.smallCount(small_input.text)
-                #app.root.current = "soul_screen"
 
         TextInput:
             id:big_input
@@ -41,7 +45,7 @@
             font_size:40
             on_release:
                 app.bigCount(big_input.text)
-                #app.root.current = "soul_screen"
+
         Button:
             text: "Cancel"
             font_name:'gb'

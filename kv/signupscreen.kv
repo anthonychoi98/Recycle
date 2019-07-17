@@ -4,7 +4,7 @@
 
     canvas.before:
         Color:
-            rgba: (.7, 1, .6, .5)
+            rgba: (0, .46, .2, 1)
         Rectangle:
             size: self.size
             pos: self.pos
@@ -19,8 +19,8 @@
         padding:80
 
         Label:
-            id:space4logo
-            height:30
+            size_hint_y:None
+            height:25
 
         Label:
             text: "Recycl-App"
@@ -29,8 +29,9 @@
             bold:True
             font_name: 'oj'
 
-        Label:
-            height:10
+        Image:
+            source: "images/option-change.png"
+            size_hint: .75, .75
 
         Label:
             id: signin_message
@@ -45,7 +46,7 @@
         TextInput:
             width:100
             id: new_username
-            hint_text: "Create a username"
+            hint_text: "Enter email"
             multiline:False
 
         TextInput:
@@ -56,23 +57,34 @@
 
         Button:
             height: 100
+            font_size: 35
+            font_name:'gb'
             text:"Sign Up!"
             background_normal: ''
             background_color: 0, 1, 0, .6
-            markup:True
+            #markup:True
             on_release:
                 app.my_firebase.sign_up(new_username.text, new_pwd.text)
 
         Button:
             height: 100
-            text:"Oops, I actually do have an account"
+            font_size: 35
+            font_name:'gb'
+            text:"I actually do have an account!"
             background_normal: ''
             background_color: 0, 1, 0, .6
             on_release:
                 app.root.current = "login_screen"
-                root.manager.transition.direction= "right"
+                app.root.transition = NoTransition()
 
         Button:
+            font_name:'gb'
+            font_size: 35
             text:"Check Out Recycling Site"
             on_release:
+                app.root.transition = NoTransition()
                 app.root.current = "home_screen"
+
+        Label:
+            size_hint_y:None
+            height:10

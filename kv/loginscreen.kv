@@ -1,11 +1,10 @@
 
 <LoginWindow>:
-    transition: "FadeTransition"
     space_x:self.size[0]/3
 
     canvas.before:
         Color:
-            rgba: (.7, 1, .6, .5)
+            rgba: (0, .46, .2, 1)
         Rectangle:
             size: self.size
             pos: self.pos
@@ -20,7 +19,8 @@
         padding:80
 
         Label:
-            height:30
+            size_hint_y:None
+            height:25
 
         Label:
             text: "Recycl-App"
@@ -29,8 +29,9 @@
             bold:True
             font_name: 'oj'
 
-        Label:
-            height:50
+        Image:
+            source: "images/option-change.png"
+            size_hint: .75,.75
         Label:
             id:login_message
             height: 40
@@ -51,6 +52,8 @@
             password:True
 
         Button:
+            font_name:'gb'
+            font_size: 35
             text:"Sign In"
             background_normal: ''
             background_color: 0, 1, 0, .6
@@ -59,15 +62,22 @@
 
 
         Button:
+            font_name:'gb'
+            font_size: 35
             text:"Don't Have an Account"
             background_normal: ''
             background_color: 0, 1, 0, .6
             on_release:
+                app.root.transition = NoTransition()
                 app.root.current = "signup"
-                root.manager.transition.direction= "left"
 
         Button:
+            font_name:'gb'
+            font_size: 35
             text:"Check Out Recycling Site"
             on_release:
-                print("switching")
-                app.root.current="soul_screen"
+                app.root.transition = NoTransition()
+                app.opensite()
+        Label:
+            size_hint_y:None
+            height:10
