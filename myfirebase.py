@@ -18,8 +18,6 @@ class MyFirebase():
                         }
 
         signup_request = requests.post(url=signup_url, data=signup_payload)
-        print(signup_request.ok)
-        print(signup_request.content.decode())
         sign_up_data = json.loads(signup_request.content.decode())
 
         if signup_request.ok == True:
@@ -28,7 +26,6 @@ class MyFirebase():
             refresh_token = sign_up_data['refreshToken']
             localId = sign_up_data['localId']
             idToken = sign_up_data['idToken']
-            print("created account!")
 
             with open("refresh_token.txt", "w") as f:
                 f.write(refresh_token)
@@ -39,21 +36,18 @@ class MyFirebase():
             my_payload = '{"nickname": "something", "avatar": "image0.jpg", "status": "Horseman", "recycled": "0", "total_recycled": "0", "smallBottles": "0", "bigBottles": "0", "csmallBottles": "0", "cbigBottles": "0"}'
             post_request = requests.patch("https://recyclingapp-44e68.firebaseio.com/" + localId + ".json?auth=" + idToken,
             data=my_payload)
-            print(post_request.ok)
-            print(json.loads(post_request.content.decode()))
-
+            self.root.ids["soul_screen"].ids["status"].text = "Horseman"
+            self.root.ids["soul_screen"].ids["recycle_label"].text = "$0.00"
             app.root.current = "soul_screen"
 
 
         if signup_request.ok == False:
             error_data = json.loads(signup_request.content.decode())
             error_message = error_data["error"]["message"]
-            print(error_message)
             app.root.ids['signup'].ids['signin_message'].text = error_message
         pass
 
     def exchange_refresh_token(self, refresh_Token):
-        print("hello/")
         refresh_url = "https://securetoken.googleapis.com/v1/token?key=AIzaSyBvGJKPt0u1NGMku6SqBQwKCcD87QSG23w"
         refresh_payload = '{"grant_type": "refresh_token", "refresh_token": "%s"}'% refresh_Token
         refresh_req = requests.post(refresh_url, data=refresh_payload)
@@ -73,11 +67,9 @@ class MyFirebase():
 
         if signin_request.ok == False:
             error_message = sign_up_data["error"]["message"]
-            print(error_message)
             app.root.ids['login_screen'].ids['login_message'].text = error_message
 
         if signin_request.ok == True:
-            print("alright alright alright alright alright ok")
             refresh_token = sign_up_data['refreshToken']
             localId = sign_up_data['localId']
             idToken = sign_up_data['idToken']
@@ -100,8 +92,3 @@ class MyFirebase():
             app.root.ids["soul_screen"].ids["status"].text = stat
             #app.root.ids["soul_screen"].ids["nickname"].text = nname
             app.on_start()
-
-
-
-
-        #ok
